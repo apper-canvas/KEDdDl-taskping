@@ -1,28 +1,33 @@
-import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
-import { motion } from 'framer-motion';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
+import { motion } from "framer-motion";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
-    return savedMode ? JSON.parse(savedMode) : 
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode
+      ? JSON.parse(savedMode)
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   useEffect(() => {
     if (darkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
   }, [darkMode]);
 
   const toggleDarkMode = () => {
-    setDarkMode(prev => !prev);
+    setDarkMode((prev) => !prev);
+  };
+
+  const handleClick = () => {
+    console.log("abcd", abcd);
   };
 
   return (
@@ -30,7 +35,7 @@ function App() {
       <header className="sticky top-0 z-10 bg-white/80 dark:bg-surface-800/80 backdrop-blur-md border-b border-surface-200 dark:border-surface-700">
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <motion.div 
+            <motion.div
               initial={{ rotate: 0 }}
               animate={{ rotate: 360 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -41,13 +46,18 @@ function App() {
             <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">
               Task Manager
             </h1>
+            <button className="bg-slate-600 text-white" onClick={handleClick}>
+              Click Me
+            </button>
           </div>
-          
+
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={toggleDarkMode}
             className="p-2 rounded-full bg-surface-100 dark:bg-surface-700 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors"
-            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={
+              darkMode ? "Switch to light mode" : "Switch to dark mode"
+            }
           >
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
